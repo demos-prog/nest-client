@@ -1,0 +1,20 @@
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  height: 100dvh;
+}
+
+.form{
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.radioWrap{
+  display: flex;
+  gap: 30px;
+}
