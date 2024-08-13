@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL, User } from '../../constants';
+import Loader from '../Loader/Loader';
 import css from './Auth.module.css'
 
 
@@ -9,6 +10,7 @@ const Auth: React.FC = () => {
   const [password, setPassword] = useState('')
   const [role, setRole] = useState<User["role"]>('user')
   const [isError, setIsError] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
 
   const changeEmail = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -29,6 +31,7 @@ const Auth: React.FC = () => {
     e.preventDefault()
     if (email === '' || password === '') return
 
+    setIsLoading(true)
     const userData: User = {
       email: email,
       password: password,
@@ -44,35 +47,41 @@ const Auth: React.FC = () => {
     })
 
     if (res.ok) {
+      setIsLoading(false)
       setEmail('');
       setPassword('');
       setRole('user');
       navigate("/login");
     } else {
+      setIsLoading(false)
       setIsError(true);
     }
   }
 
   return (
-    <div className={css.wrapper}>
-      {isError ? <span>Something went wrong :(</span> : null}
-      <span>Sighn up. Already have an account?</span>
-      <form onSubmit={submit} className={css.form}>
-        <input required type="email" placeholder='Email' value={email} onChange={changeEmail} />
-        <input required type="password" placeholder='Password' value={password} onChange={changePassword} />
-        <div className={css.radioWrap}>
-          <label>
-            <input type="radio" onChange={changeRole} value={'user'} checked={role === 'user'} />
-            User
-          </label>
-          <label>
-            <input type="radio" onChange={changeRole} value={'admin'} checked={role === 'admin'} />
-            Admin
-          </label>
-        </div>
-        <input type="submit" value="Create an account" />
-      </form>
-    </div>
+    <>
+      <div className={css.wrapper}>
+        {isError ? <span>Something went wrong :(</span> : null}
+        <span>Sighn up. Already have an account?</span>
+        <form onSubmit={submit} className={css.form}>
+          <input required type="email" placeholder='Email' value={email} onChange={changeEmail} />
+          <input required type="password" placeholder='Password' value={password} onChange={changePassword} />
+          <div className={css.radioWrap}>
+            <label>
+              <input type="radio" onChange={changeRole} value={'user'} checked={role === 'user'} />
+              User
+            </label>
+            <label>
+              <input type="radio" onChange={changeRole} value={'admin'} checked={role === 'admin'} />
+              Admin
+            </label>
+          </div>
+          <input type="submit" value="Create an account" />
+        </form>
+      </div>
+
+      {isLoading ? <Loader passedText={'It may take a bunch of time because of using a free plan for deploying the server'} /> : null}
+    </>
   );
 };
 
