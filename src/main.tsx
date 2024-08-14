@@ -7,6 +7,8 @@ import {
 import './null_styles.css';
 import Auth from './components/Auth/Auth.tsx';
 import Login from './components/Login/Login.tsx';
+import Admin from './components/Admin/Admin.tsx';
+import RequireAuth from './components/RequireAuth/RequireAuth.tsx';
 
 
 const router = createBrowserRouter([
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/admin",
+    element: <RequireAuth><Admin /></RequireAuth>,
   },
 ]);
 

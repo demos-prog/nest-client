@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { API_URL, User } from '../../constants';
 import Loader from '../Loader/Loader';
 import css from './Auth.module.css'
@@ -62,10 +62,24 @@ const Auth: React.FC = () => {
     <>
       <div className={css.wrapper}>
         {isError ? <span>Something went wrong :(</span> : null}
-        <span>Sighn up. Already have an account?</span>
+        <span>Sign up. Already have an account? <Link to={'/login'}><u>Sign in</u></Link></span>
         <form onSubmit={submit} className={css.form}>
-          <input required type="email" placeholder='Email' value={email} onChange={changeEmail} />
-          <input required type="password" placeholder='Password' value={password} onChange={changePassword} />
+          <input
+            required
+            disabled={isLoading}
+            type="email"
+            placeholder='Email'
+            value={email}
+            onChange={changeEmail}
+          />
+          <input
+            required
+            disabled={isLoading}
+            type="password"
+            placeholder='Password'
+            value={password}
+            onChange={changePassword}
+          />
           <div className={css.radioWrap}>
             <label>
               <input type="radio" onChange={changeRole} value={'user'} checked={role === 'user'} />
@@ -80,7 +94,7 @@ const Auth: React.FC = () => {
         </form>
       </div>
 
-      {isLoading ? <Loader passedText={'It may take a bunch of time because of using a free plan for deploying the server'} /> : null}
+      {isLoading ? <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} /> : null}
     </>
   );
 };
