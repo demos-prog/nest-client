@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { API_URL } from '../../constants';
 import Loader from '../Loader/Loader';
 import css from './Login.module.css'
+import getuserByEmail from '../../helpers/getUaserByEmail';
 
 
 const Login: React.FC = () => {
@@ -41,12 +42,23 @@ const Login: React.FC = () => {
     })
 
     if (res.ok) {
-      const data = await res.json()
-      localStorage.setItem('myAppUsersData', JSON.stringify({ email: email, access_token: data.access_token }))
+      const usersData = await res.json()
+      localStorage.setItem('myAppUsersData', JSON.stringify({ email: email, access_token: usersData.access_token }))
       setIsLoading(false)
       setEmail('');
       setPassword('');
-      navigate("/admin");
+
+      getuserByEmail(email).then((user) => {
+        if (user) {
+          const role = user.role;
+          if (role === 'admin') {
+            navigate("/admin");
+          } else {
+            navigate("/");
+          }
+        }
+      })
+
     } else {
       setIsLoading(false)
       setIsError(true);
