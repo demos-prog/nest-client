@@ -1,8 +1,8 @@
 import { API_URL } from "../constants"
 import getAccessToken from "./getAccessToken";
 
-export default async function getAllUsers() {
-  const res = await fetch(`${API_URL}/users/`, {
+export default async function getAllUsers(role: string) {
+  const res = await fetch(`${API_URL}/users?role=${role}`, {
     headers: {
       'Authorization': `Bearer ${getAccessToken()}`
     },

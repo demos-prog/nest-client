@@ -1,23 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { User } from '../../constants';
 import css from './Admin.module.css';
 import getAllUsers from '../../helpers/GetAllUsers';
 import logOut from '../../helpers/logOut';
 import deleteUser from '../../helpers/deleteUser';
+import getRole from '../../helpers/getRole';
+
 
 
 const Admin: React.FC = () => {
   const [users, setUsers] = useState<User[]>([])
+  const [role, setRole] = useState<'admin' | 'user'>('admin')
 
-  const getUsers = () => {
-    getAllUsers().then(data => {
+  const getUsers = useCallback(() => {
+    getAllUsers(role).then(data => {
       if (data) setUsers(data)
     })
+  }, [role])
+
+  const handleDelete = (id?: number) => {
+    deleteUser(role, id)
+      .then(() => getUsers())
+      .catch((error: unknown) => {
+        if (error instanceof Error) {
+          alert(error.message);
+        } else {
+          alert('An unknown error occurred');
+        }
+      });
   }
 
   useEffect(() => {
+    getRole().then((curRole) => {
+      if (curRole) {
+        setRole(curRole)
+      }
+    })
     getUsers()
-  }, [])
+  }, [getUsers])
 
   return (
     <div className={css.wrap}>
@@ -46,7 +66,7 @@ const Admin: React.FC = () => {
                   <td>{user.role}</td>
                   <td>
                     <button
-                      onClick={() => deleteUser(user.id).then(() => getUsers())}>
+                      onClick={() => handleDelete(user.id)}>
                       Delete
                     </button>
                   </td>

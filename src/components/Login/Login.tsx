@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_URL } from '../../constants';
+import getuserByEmail from '../../helpers/getUaserByEmail';
 import Loader from '../Loader/Loader';
 import css from './Login.module.css'
-import getuserByEmail from '../../helpers/getUaserByEmail';
 
 
 const Login: React.FC = () => {
@@ -58,7 +58,6 @@ const Login: React.FC = () => {
           }
         }
       })
-
     } else {
       setIsLoading(false)
       setIsError(true);

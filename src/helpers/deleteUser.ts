@@ -1,8 +1,8 @@
 import { API_URL } from "../constants";
 import getAccessToken from "./getAccessToken";
 
-export default async function deleteUser(id?: number) {
-  const res = await fetch(`${API_URL}/users/${id}`, {
+export default async function deleteUser(role: 'admin' | 'user', id?: number) {
+  const res = await fetch(`${API_URL}/users/${id}?role=${role}`, {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${getAccessToken()}`
