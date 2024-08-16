@@ -5,12 +5,14 @@ import getAllUsers from '../../helpers/GetAllUsers';
 import logOut from '../../helpers/logOut';
 import deleteUser from '../../helpers/deleteUser';
 import getRole from '../../helpers/getRole';
+import Modal from '../Modal/Modal';
 
 
 
 const Admin: React.FC = () => {
   const [users, setUsers] = useState<User[]>([])
   const [role, setRole] = useState<'admin' | 'user'>('admin')
+  const [editedUser, seteditedUser] = useState<User | null>(null)
 
   const getUsers = useCallback(() => {
     getAllUsers(role).then(data => {
@@ -45,37 +47,47 @@ const Admin: React.FC = () => {
         <button onClick={logOut}>Log out</button>
       </header>
 
-      <span>List of users:</span>
       {users.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              {Object.keys(users[0]).map((key, i) => {
-                if (key === 'id' || key === 'password' || key === 'createdAt' || key === 'updatedAt') return null
+        <>
+          <span>List of users:</span>
+          <table>
+            <thead>
+              <tr>
+                {Object.keys(users[0]).map((key, i) => {
+                  if (key === 'id' || key === 'password' || key === 'createdAt' || key === 'updatedAt') return null
+                  return (
+                    <th key={i}>{key}</th>
+                  )
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, i) => {
                 return (
-                  <th key={i}>{key}</th>
+                  <tr key={i}>
+                    <td>{user.email}</td>
+                    <td>{user.role}</td>
+                    <td>
+                      <button
+                        onClick={() => seteditedUser(user)}>
+                        Edit
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleDelete(user.id)}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
                 )
               })}
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, i) => {
-              return (
-                <tr key={i}>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td>
-                    <button
-                      onClick={() => handleDelete(user.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </>
       ) : null}
+
+      {editedUser ? <Modal user={editedUser} seteditedUser={seteditedUser} getUsers={getUsers}/> : null}
     </div>
   );
 };
