@@ -9,3 +9,9 @@ export interface User {
   createdAt?: string,
   updatedAt?: string,
 }
+
+export interface Post {
+  title: string,
+  content: string,
+  userId: number,
+}

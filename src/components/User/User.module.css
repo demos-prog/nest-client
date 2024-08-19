@@ -1,0 +1,67 @@
+.userPage {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 20px;
+  min-height: 100dvh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  gap: 20px;
+}
+
+#titleInput {
+  border-bottom: 1px solid #000;
+  padding: 5px;
+}
+
+#texArea {
+  padding: 10px;
+  resize: none;
+  height: 100px;
+  width: 100%;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+#texArea:focus {
+  outline: 2px solid #000;
+}
+
+#submitBtn {
+  border-radius: 5px;
+  color: white;
+  background-color: #28A745;
+  cursor: pointer;
+  padding: 10px 30px;
+  width: min-content;
+  transition: .2s;
+}
+
+#submitBtn:hover {
+  opacity: .8;
+}
+
+.postslist {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -53,6 +53,8 @@ const Login: React.FC = () => {
           const role = user.role;
           if (role === 'admin') {
             navigate("/admin");
+          } else if (role === 'user') {
+            navigate("/user");
           } else {
             navigate("/");
           }

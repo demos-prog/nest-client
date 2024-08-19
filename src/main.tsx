@@ -9,7 +9,7 @@ import Auth from './components/Auth/Auth.tsx';
 import Login from './components/Login/Login.tsx';
 import Admin from './components/Admin/Admin.tsx';
 import RequireAuth from './components/RequireAuth/RequireAuth.tsx';
-
+import User from './components/User/User.tsx';
 
 const router = createBrowserRouter([
   {
@@ -21,8 +21,18 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/user",
+    element: (
+      <RequireAuth>
+        <User />
+      </RequireAuth>),
+  },
+  {
     path: "/admin",
-    element: <RequireAuth><Admin /></RequireAuth>,
+    element: (
+      <RequireAuth>
+        <Admin />
+      </RequireAuth>),
   },
 ]);
 

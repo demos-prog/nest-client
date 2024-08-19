@@ -2,11 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { User } from '../../constants';
 import css from './Admin.module.css';
 import getAllUsers from '../../helpers/GetAllUsers';
-import logOut from '../../helpers/logOut';
 import deleteUser from '../../helpers/deleteUser';
 import getRole from '../../helpers/getRole';
 import Modal from '../Modal/Modal';
-
+import LogOutBtn from '../LogOutBtn/LogOutBtn';
 
 
 const Admin: React.FC = () => {
@@ -44,7 +43,7 @@ const Admin: React.FC = () => {
   return (
     <div className={css.wrap}>
       <header>
-        <button onClick={logOut}>Log out</button>
+        <LogOutBtn/>
       </header>
 
       {users.length > 0 ? (
