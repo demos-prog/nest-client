@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import LogOutBtn from '../LogOutBtn/LogOutBtn';
 import deletePost from '../../helpers/deletePost';
 import Loader from '../Loader/Loader';
-import css from './User.module.css';
 import PostModal from '../PostModal/PostModal';
 import getAllUsers from '../../helpers/GetAllUsers';
+import css from './User.module.css';
 
 
 const User: React.FC = () => {
