@@ -62,6 +62,21 @@ header {
 
 .post{
   display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 15px;
+  border-radius: 5px;
+  border: 1px solid #000;
+}
+
+.postHeader{
+  display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.actions{
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
