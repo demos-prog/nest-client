@@ -12,6 +12,11 @@
 header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.hello{
+  font-size: 30px;
 }
 
 .postForm {
@@ -22,7 +27,7 @@ header {
 }
 
 #titleInput {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #1b1414;
   padding: 5px;
 }
 
@@ -36,7 +41,7 @@ header {
 }
 
 #texArea:focus {
-  outline: 2px solid #000;
+  outline: 1px solid #000;
 }
 
 #submitBtn {
@@ -79,4 +84,28 @@ header {
   display: flex;
   gap: 15px;
   align-items: center;
+}
+
+.btn{
+  height: 26px;
+  width: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  color: white;
+  transition: .2s;
+  opacity: .8;
+}
+
+.btn:hover{
+  opacity: 1;
+}
+
+.green{
+  background-color: #28A745;
+}
+
+.red{
+  background-color: red;
 }

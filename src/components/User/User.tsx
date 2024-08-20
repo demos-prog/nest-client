@@ -9,6 +9,7 @@ import deletePost from '../../helpers/deletePost';
 import Loader from '../Loader/Loader';
 import css from './User.module.css';
 import PostModal from '../PostModal/PostModal';
+import getAllUsers from '../../helpers/GetAllUsers';
 
 
 const User: React.FC = () => {
@@ -18,6 +19,7 @@ const User: React.FC = () => {
   const [userEmail, setUserEmail] = useState('')
   const [userID, setUserID] = useState<number | undefined>()
   const [isLoading, setIsLoading] = useState(false)
+  const [userList, setUserList] = useState<Map<number, string>>()
   const [postData, setPostData] = useState<{
     title: string,
     content: string,
@@ -85,6 +87,14 @@ const User: React.FC = () => {
     } else {
       navigate('/login');
     }
+
+    getAllUsers('admin').then(listOfUsers => {
+      const Users = new Map
+      listOfUsers.forEach((user: { id: number, email: string }) => {
+        if (!Users.has(user.id)) Users.set(user.id, user.email)
+      })
+      setUserList(Users)
+    })
   }, [getPosts, navigate, user, userEmail]);
 
   const postslist = (() => (
@@ -92,16 +102,19 @@ const User: React.FC = () => {
       {posts.map((post, i) => (
         <li className={css.post} key={i}>
           <div className={css.postHeader}>
-            <span><b>{post.title}</b></span>
+            <span>
+              <b><u>{post.title}</u></b>&nbsp;&nbsp;
+              (by: {userList?.get(post.userId)})
+            </span>
             <div className={css.actions}>
-              <button onClick={() => setPostData({
+              <button className={`${css.btn} ${css.green}`} onClick={() => setPostData({
                 title: post.title,
                 content: post.content,
                 id: post.id
               })}>
                 Edit
               </button>
-              <button onClick={() => handleDelete(post.id)}>Delete</button>
+              <button className={`${css.btn} ${css.red}`} onClick={() => handleDelete(post.id)}>Delete</button>
             </div>
           </div>
           <span>{post.content}</span>
@@ -113,7 +126,7 @@ const User: React.FC = () => {
   return (
     <div className={css.userPage}>
       <header>
-        {userEmail && <span>Hello, {userEmail}!</span>}
+        {userEmail && <span className={css.hello}>Hello, {userEmail}!</span>}
         <LogOutBtn />
       </header>
 
@@ -139,7 +152,7 @@ const User: React.FC = () => {
         <input id={css.submitBtn} type="submit" value="Create post" />
       </form>
 
-      {postData && <PostModal postData={postData} setPostData={setPostData} userID={userID} getPosts={getPosts}/>}
+      {postData && <PostModal postData={postData} setPostData={setPostData} userID={userID} getPosts={getPosts} />}
       {isLoading && <Loader />}
     </div>
   );
