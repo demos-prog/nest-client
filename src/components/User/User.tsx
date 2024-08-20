@@ -107,19 +107,19 @@ const User: React.FC = () => {
               (by: {userList?.get(post.userId)})
             </span>
             <div className={css.actions}>
-              <button className={`${css.btn} ${css.green}`} onClick={() => setPostData({
+              <button disabled={post.userId !== userID} className={`${css.btn} ${css.green}`} onClick={() => setPostData({
                 title: post.title,
                 content: post.content,
                 id: post.id
               })}>
                 Edit
               </button>
-              <button className={`${css.btn} ${css.red}`} onClick={() => handleDelete(post.id)}>Delete</button>
+              <button disabled={post.userId !== userID} className={`${css.btn} ${css.red}`} onClick={() => handleDelete(post.id)}>Delete</button>
             </div>
           </div>
           <span>{post.content}</span>
         </li>
-      ))}
+      )).reverse()}
     </ul>
   ))()
 
@@ -129,8 +129,6 @@ const User: React.FC = () => {
         {userEmail && <span className={css.hello}>Hello, {userEmail}!</span>}
         <LogOutBtn />
       </header>
-
-      {postslist}
 
       <form onSubmit={handleSubmit} className={css.postForm}>
         <input
@@ -151,6 +149,8 @@ const User: React.FC = () => {
         </textarea>
         <input id={css.submitBtn} type="submit" value="Create post" />
       </form>
+
+      {postslist}
 
       {postData && <PostModal postData={postData} setPostData={setPostData} userID={userID} getPosts={getPosts} />}
       {isLoading && <Loader />}
