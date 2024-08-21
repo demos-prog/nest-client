@@ -13,10 +13,6 @@ import User from './components/User/User.tsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Auth />,
-  },
-  {
     path: "/login",
     element: <Login />,
   },
@@ -33,6 +29,14 @@ const router = createBrowserRouter([
       <RequireAuth>
         <Admin />
       </RequireAuth>),
+  },
+  {
+    path: "/",
+    element: <Auth />,
+  },
+  {
+    path: "*",
+    element: <Auth />,
   },
 ]);
 
