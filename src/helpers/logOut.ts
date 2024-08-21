@@ -1,4 +1,6 @@
+import { CLIENT_URL } from "../constants";
+
 export default function logOut() {
   localStorage.removeItem('myAppUsersData');
-  window.location.assign(`http://localhost:5173/login`);
+  window.location.assign(`${CLIENT_URL}/login`);
 }
