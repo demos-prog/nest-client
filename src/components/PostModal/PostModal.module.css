@@ -55,17 +55,13 @@
   cursor: pointer;
   padding: 10px 30px;
   width: 100%;
-  transition: .2s;
-}
-
-#submitBtn:hover {
-  opacity: .8;
 }
 
 #submitBtn:disabled {
   cursor: default;
+  opacity: .8;
 }
 
 #submitBtn:disabled:hover {
-  opacity: 1;
+  opacity: .8;
 }

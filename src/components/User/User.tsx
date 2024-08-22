@@ -93,6 +93,12 @@ const User: React.FC = () => {
       navigate('/login');
     }
 
+    if (postData) {
+      document.body.classList.add(css.noScroll);
+    } else {
+      document.body.classList.remove(css.noScroll);
+    }
+
     getAllUsers('admin').then(listOfUsers => {
       const Users = new Map
       listOfUsers.forEach((user: { id: number, email: string }) => {
@@ -100,7 +106,11 @@ const User: React.FC = () => {
       })
       setUserList(Users)
     })
-  }, [getPosts, navigate, user, userEmail]);
+
+    return () => {
+      document.body.classList.remove(css.noScroll);
+    };
+  }, [getPosts, navigate, postData, user, userEmail]);
 
   const postslist = (() => (
     <ul className={css.postslist}>
@@ -109,7 +119,7 @@ const User: React.FC = () => {
           <div className={css.postHeader}>
             <span>
               <b><u>{post.title}</u></b>&nbsp;&nbsp;
-              (by: {userList?.get(post.userId)})
+              (by: <span className={css.name}>{userList?.get(post.userId)}</span>)
             </span>
             <div className={css.actions}>
               <button
@@ -142,7 +152,7 @@ const User: React.FC = () => {
     <div className={css.pageWrap}>
       <div className={css.userPage}>
         <header>
-          {userEmail && <span className={css.hello}>Hello, {userEmail}!</span>}
+          {userEmail && <span className={css.hello}>Hello,&nbsp;{userEmail}!</span>}
           <LogOutBtn />
         </header>
 

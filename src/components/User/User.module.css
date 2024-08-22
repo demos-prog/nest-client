@@ -26,6 +26,10 @@ header {
   font-size: 30px;
 }
 
+.name{
+  color: purple;
+}
+
 .postForm {
   display: flex;
   flex-direction: column;
@@ -80,6 +84,10 @@ header {
   box-shadow: none;
 }
 
+.noScroll {
+  overflow: hidden;
+}
+
 .postslist {
   width: 100%;
   display: flex;
@@ -88,6 +96,7 @@ header {
 }
 
 .post {
+  overflow: hidden;
   background-color: rgba(255, 255, 255, 0.6);
   -webkit-box-shadow: 0px 0px 23px -1px rgba(255, 255, 255, 0.75);
   -moz-box-shadow: 0px 0px 23px -1px rgba(255, 255, 255, 0.75);
