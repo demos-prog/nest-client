@@ -78,7 +78,12 @@ const PostModal: React.FC<PostModalProps> = ({ postData, setPostData, getPosts, 
             placeholder='Text of the post'
           >
           </textarea>
-          <input id={css.submitBtn} type="submit" value="Update post" />
+          <input
+            disabled={title === '' || text === ''}
+            id={css.submitBtn}
+            type="submit"
+            value="Update post"
+          />
         </form>
       </div>
       {isLoading && <Loader />}

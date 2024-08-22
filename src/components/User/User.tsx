@@ -9,6 +9,8 @@ import deletePost from '../../helpers/deletePost';
 import Loader from '../Loader/Loader';
 import PostModal from '../PostModal/PostModal';
 import getAllUsers from '../../helpers/GetAllUsers';
+import editIacon from '../../assets/editIcon.svg';
+import deleteIcon from '../../assets/delete.svg';
 import css from './User.module.css';
 
 
@@ -62,12 +64,15 @@ const User: React.FC = () => {
   }
 
   const handleDelete = (id: number) => {
-    setIsLoading(true)
-    deletePost(id).then((res) => {
-      if (res) getPosts()
-    }).catch(err => {
-      console.log(err);
-    }).finally(() => setIsLoading(false))
+    const confirmation = confirm('Are you sure you want to delete?')
+    if (confirmation) {
+      setIsLoading(true)
+      deletePost(id).then((res) => {
+        if (res) getPosts()
+      }).catch(err => {
+        console.log(err);
+      }).finally(() => setIsLoading(false))
+    }
   }
 
   const getPosts = useCallback(() => {
@@ -107,14 +112,24 @@ const User: React.FC = () => {
               (by: {userList?.get(post.userId)})
             </span>
             <div className={css.actions}>
-              <button disabled={post.userId !== userID} className={`${css.btn} ${css.green}`} onClick={() => setPostData({
-                title: post.title,
-                content: post.content,
-                id: post.id
-              })}>
-                Edit
+              <button
+                disabled={post.userId !== userID}
+                className={css.btn}
+                onClick={() => setPostData({
+                  title: post.title,
+                  content: post.content,
+                  id: post.id
+                })}
+              >
+                <img src={editIacon} alt="edit" />
               </button>
-              <button disabled={post.userId !== userID} className={`${css.btn} ${css.red}`} onClick={() => handleDelete(post.id)}>Delete</button>
+              <button
+                disabled={post.userId !== userID}
+                className={css.btn}
+                onClick={() => handleDelete(post.id)}
+              >
+                <img src={deleteIcon} alt="delete" />
+              </button>
             </div>
           </div>
           <span>{post.content}</span>
@@ -124,36 +139,50 @@ const User: React.FC = () => {
   ))()
 
   return (
-    <div className={css.userPage}>
-      <header>
-        {userEmail && <span className={css.hello}>Hello, {userEmail}!</span>}
-        <LogOutBtn />
-      </header>
+    <div className={css.pageWrap}>
+      <div className={css.userPage}>
+        <header>
+          {userEmail && <span className={css.hello}>Hello, {userEmail}!</span>}
+          <LogOutBtn />
+        </header>
 
-      <form onSubmit={handleSubmit} className={css.postForm}>
-        <input
-          required
-          type="text"
-          id={css.titleInput}
-          value={title}
-          onChange={handleChTitle}
-          placeholder="New post's title"
-        />
-        <textarea
-          required
-          id={css.texArea}
-          value={text}
-          onChange={handleChText}
-          placeholder='Text of the post'
-        >
-        </textarea>
-        <input id={css.submitBtn} type="submit" value="Create post" />
-      </form>
+        <form onSubmit={handleSubmit} className={css.postForm}>
+          <input
+            required
+            type="text"
+            id={css.titleInput}
+            value={title}
+            onChange={handleChTitle}
+            placeholder="New post's title"
+          />
+          <textarea
+            required
+            id={css.texArea}
+            value={text}
+            onChange={handleChText}
+            placeholder='Text of the post'
+          >
+          </textarea>
+          <input
+            disabled={title === '' || text === ''}
+            id={css.submitBtn}
+            type="submit"
+            value="Create post"
+          />
+        </form>
 
-      {postslist}
+        {postslist}
 
-      {postData && <PostModal postData={postData} setPostData={setPostData} userID={userID} getPosts={getPosts} />}
-      {isLoading && <Loader />}
+        {postData && (
+          <PostModal
+            postData={postData}
+            setPostData={setPostData}
+            userID={userID}
+            getPosts={getPosts}
+          />
+        )}
+        {isLoading && <Loader />}
+      </div>
     </div>
   );
 };
