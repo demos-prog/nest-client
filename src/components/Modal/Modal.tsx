@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { User } from '../../constants';
 import Loader from '../Loader/Loader';
-import css from './Modal.module.css';
 import editUser from '../../helpers/editUser';
+import css from '../PostModal/PostModal.module.css';
 
 type modalProps = {
   user?: User,
@@ -70,16 +70,33 @@ const Modal: React.FC<modalProps> = ({ user, seteditedUser, getUsers }) => {
             onChange={changeEmail}
           />
           <div className={css.radioWrap}>
-            <label>
-              <input type="radio" onChange={changeRole} value={'user'} checked={role === 'user'} />
+            <label className={css.radioElem}>
+              <input
+                className={css.radio}
+                type="radio"
+                onChange={changeRole}
+                value={'user'}
+                checked={role === 'user'}
+              />
               User
             </label>
-            <label>
-              <input type="radio" onChange={changeRole} value={'admin'} checked={role === 'admin'} />
+            <label className={css.radioElem}>
+              <input
+                className={css.radio}
+                type="radio"
+                onChange={changeRole}
+                value={'admin'}
+                checked={role === 'admin'}
+              />
               Admin
             </label>
           </div>
-          <input type="submit" value="Change" />
+          <input
+            disabled={email === ''}
+            id={css.submitBtn}
+            type="submit"
+            value="Change"
+          />
         </form>
       </div>
       {isLoading ? <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} /> : null}

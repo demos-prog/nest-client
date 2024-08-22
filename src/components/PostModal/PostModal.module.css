@@ -65,3 +65,21 @@
 #submitBtn:disabled:hover {
   opacity: .8;
 }
+
+.radioWrap {
+  display: flex;
+  gap: 30px;
+}
+
+.radioElem{
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.radio{
+  accent-color: purple;
+  cursor: pointer;
+}
