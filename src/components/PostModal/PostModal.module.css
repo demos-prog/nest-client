@@ -1,5 +1,5 @@
-.modalBackGround{
-  background-color: rgba(0, 0, 0, 0.2);
+.modalBackGround {
+  background-color: rgba(255, 255, 255, 0.4);
   z-index: 100;
   width: 100vw;
   height: 100dvh;
@@ -11,7 +11,10 @@
   align-items: center;
 }
 
-.modalWindow{
+.modalWindow {
+  -webkit-box-shadow: 0px 0px 23px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 23px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 23px -1px rgba(0, 0, 0, 0.75);
   width: 400px;
   border-radius: 10px;
   background-color: #fff;
@@ -21,7 +24,7 @@
   gap: 20px;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
   gap: 15px;

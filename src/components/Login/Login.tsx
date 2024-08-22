@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { API_URL } from '../../constants';
 import getuserByEmail from '../../helpers/getUaserByEmail';
 import Loader from '../Loader/Loader';
-import css from './Login.module.css'
+import css from '../Auth/Auth.module.css'
 
 
 const Login: React.FC = () => {
@@ -69,27 +69,36 @@ const Login: React.FC = () => {
   return (
     <>
       <div className={css.wrapper}>
-        {isError ? <span>Something went wrong :(</span> : null}
-        <span>Sign in. Don't have an account? <Link to={'/'}><u>Sign up</u></Link></span>
-        <form onSubmit={submit} className={css.form}>
-          <input
-            required
-            disabled={isLoading}
-            type="email"
-            placeholder='Email'
-            value={email}
-            onChange={changeEmail}
-          />
-          <input
-            required
-            disabled={isLoading}
-            type="password"
-            placeholder='Password'
-            value={password}
-            onChange={changePassword}
-          />
-          <input type="submit" value="Log in" />
-        </form>
+        <div className={css.window}>
+          {isError ? <span>Something went wrong :(</span> : null}
+          <span>Sign in. Don't have an account? <Link to={'/'}><u>Sign up</u></Link></span>
+          <form onSubmit={submit} className={css.form}>
+            <input
+              className={css.input}
+              required
+              disabled={isLoading}
+              type="email"
+              placeholder='Email'
+              value={email}
+              onChange={changeEmail}
+            />
+            <input
+              className={css.input}
+              required
+              disabled={isLoading}
+              type="password"
+              placeholder='Password'
+              value={password}
+              onChange={changePassword}
+            />
+            <input
+              className={css.submitBtn}
+              disabled={email === '' || password === ''}
+              type="submit"
+              value="Log in"
+            />
+          </form>
+        </div>
       </div>
 
       {isLoading ? <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} /> : null}

@@ -61,37 +61,58 @@ const Auth: React.FC = () => {
   return (
     <>
       <div className={css.wrapper}>
-        {isError ? <span>Something went wrong :(</span> : null}
-        <span>Sign up. Already have an account? <Link to={'/login'}><u>Sign in</u></Link></span>
-        <form onSubmit={submit} className={css.form}>
-          <input
-            required
-            disabled={isLoading}
-            type="email"
-            placeholder='Email'
-            value={email}
-            onChange={changeEmail}
-          />
-          <input
-            required
-            disabled={isLoading}
-            type="password"
-            placeholder='Password'
-            value={password}
-            onChange={changePassword}
-          />
-          <div className={css.radioWrap}>
-            <label>
-              <input type="radio" onChange={changeRole} value={'user'} checked={role === 'user'} />
-              User
-            </label>
-            <label>
-              <input type="radio" onChange={changeRole} value={'admin'} checked={role === 'admin'} />
-              Admin
-            </label>
-          </div>
-          <input type="submit" value="Create an account" />
-        </form>
+        <div className={css.window}>
+          {isError ? <span>Something went wrong :(</span> : null}
+          <span>Sign up. Already have an account? <Link to={'/login'}><u>Sign in</u></Link></span>
+          <form onSubmit={submit} className={css.form}>
+            <input
+              className={css.input}
+              required
+              disabled={isLoading}
+              type="email"
+              placeholder='Email'
+              value={email}
+              onChange={changeEmail}
+            />
+            <input
+              className={css.input}
+              required
+              disabled={isLoading}
+              type="password"
+              placeholder='Password'
+              value={password}
+              onChange={changePassword}
+            />
+            <div className={css.radioWrap}>
+              <label className={css.radioElem}>
+                <input
+                  className={css.radio}
+                  type="radio"
+                  onChange={changeRole}
+                  value={'user'}
+                  checked={role === 'user'}
+                />
+                User
+              </label>
+              <label className={css.radioElem}>
+                <input
+                  className={css.radio}
+                  type="radio"
+                  onChange={changeRole}
+                  value={'admin'}
+                  checked={role === 'admin'}
+                />
+                Admin
+              </label>
+            </div>
+            <input
+              className={css.submitBtn}
+              disabled={email === '' || password === ''}
+              type="submit"
+              value="Create an account"
+            />
+          </form>
+        </div>
       </div>
 
       {isLoading ? <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} /> : null}
