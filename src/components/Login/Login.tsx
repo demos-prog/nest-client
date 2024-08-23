@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { API_URL } from '../../constants';
 import getuserByEmail from '../../helpers/getUaserByEmail';
 import Loader from '../Loader/Loader';
+import login from '../../helpers/login';
 import css from '../Auth/Auth.module.css'
 
 
@@ -33,17 +33,8 @@ const Login: React.FC = () => {
       password: password,
     }
 
-    const res = await fetch(`${API_URL}/auth/login`, {
-      method: 'POST',
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-type": "application/json"
-      }
-    })
-
-    if (res.ok) {
-      const usersData = await res.json()
-      localStorage.setItem('myAppUsersData', JSON.stringify({ email: email, access_token: usersData.access_token }))
+    login(userData).then(res => {
+      localStorage.setItem('myAppUsersData', JSON.stringify({ email: email, access_token: res.access_token }))
       setIsLoading(false)
       setEmail('');
       setPassword('');
@@ -60,10 +51,12 @@ const Login: React.FC = () => {
           }
         }
       })
-    } else {
-      setIsLoading(false)
+    }).catch(error => {
+      console.log(error.message);
       setIsError(true);
-    }
+    }).finally(() => {
+      setIsLoading(false);
+    })
   }
 
   return (

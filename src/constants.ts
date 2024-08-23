@@ -12,7 +12,12 @@ export interface User {
   updatedAt?: string,
 }
 
-export interface Post {
+export interface IUserLogin {
+  email: string,
+  password: string,
+}
+
+export interface IPost {
   id: number,
   title: string,
   content: string,
@@ -21,7 +26,7 @@ export interface Post {
   updatedAt: string,
 }
 
-export interface PostDTO {
+export interface IPostDTO {
   title: string,
   content: string,
   userId: number,

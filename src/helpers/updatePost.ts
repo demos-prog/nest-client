@@ -1,8 +1,8 @@
-import { API_URL, PostDTO } from "../constants"
+import { API_URL, IPostDTO } from "../constants"
 import getAccessToken from "./getAccessToken";
 import getRole from "./getRole";
 
-export default async function updatePost(postID: number, post: PostDTO) {
+export default async function updatePost(postID: number, post: IPostDTO) {
   return getRole().then(async (role) => {
     const res = await fetch(`${API_URL}/posts/${postID}?role=${role}`, {
       method: 'PUT',

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import createPost from '../../helpers/createPost';
 import getuserByEmail from '../../helpers/getUaserByEmail';
 import { getAllPosts } from '../../helpers/getAllPosts';
-import { Post } from '../../constants';
+import { IPost } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import LogOutBtn from '../LogOutBtn/LogOutBtn';
 import deletePost from '../../helpers/deletePost';
@@ -17,7 +17,7 @@ import css from './User.module.css';
 const User: React.FC = () => {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-  const [posts, setPosts] = useState<Post[]>([])
+  const [posts, setPosts] = useState<IPost[]>([])
   const [userEmail, setUserEmail] = useState('')
   const [userID, setUserID] = useState<number | undefined>()
   const [isLoading, setIsLoading] = useState(false)
