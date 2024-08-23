@@ -84,8 +84,8 @@ const User: React.FC = () => {
   useEffect(() => {
     if (user) {
       const currEmail = JSON.parse(user!).email
-      getuserByEmail(currEmail).then((user) => {
-        setUserID(user?.id)
+      getuserByEmail(currEmail).then((cuser) => {
+        setUserID(cuser?.id)
       })
       setUserEmail(currEmail)
       getPosts();

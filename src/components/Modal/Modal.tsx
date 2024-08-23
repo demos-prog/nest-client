@@ -35,6 +35,8 @@ const Modal: React.FC<modalProps> = ({ user, seteditedUser, getUsers }) => {
     if (email === '') return
 
     setIsLoading(true)
+    const storage = localStorage.getItem('myAppUsersData')
+
     const userData: { email: string, role: 'admin' | 'user' } = {
       email: email ?? '',
       role: role
@@ -42,11 +44,19 @@ const Modal: React.FC<modalProps> = ({ user, seteditedUser, getUsers }) => {
 
     editUser(userData, user?.id)
       .then(() => {
+        if (JSON.parse(storage!).email === user?.email) {
+          const newData = {
+            email: email,
+            access_token: JSON.parse(storage!).access_token
+          }
+          localStorage.setItem('myAppUsersData', JSON.stringify(newData))
+        }
         getUsers()
         setIsLoading(false)
         setEmail('');
         setRole('user');
         seteditedUser(null)
+
       }).catch((error: unknown) => {
         if (error instanceof Error) {
           alert(error.message);

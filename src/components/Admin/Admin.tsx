@@ -9,21 +9,24 @@ import LogOutBtn from '../LogOutBtn/LogOutBtn';
 import editIacon from '../../assets/editIcon.svg';
 import deleteIcon from '../../assets/delete.svg';
 import css from './Admin.module.css';
+import logOut from '../../helpers/logOut';
 
 
 const Admin: React.FC = () => {
   const [users, setUsers] = useState<User[]>([])
   const [role, setRole] = useState<'admin' | 'user'>('admin')
   const [editedUser, seteditedUser] = useState<User | null>(null)
-  const [userEmail, setUserEmail] = useState('')
 
   const navigate = useNavigate()
   const user = localStorage.getItem('myAppUsersData')
+  const userEmail = JSON.parse(user!).email
 
   const getUsers = useCallback(() => {
     getAllUsers(role)
       .then(data => {
         if (data) setUsers(data)
+      }).catch(() => {
+        logOut()
       })
   }, [role])
 
@@ -42,11 +45,12 @@ const Admin: React.FC = () => {
     }
   }
 
+  useEffect(()=>{
+    getUsers()
+  },[getUsers])
+
   useEffect(() => {
-    if (user) {
-      const currEmail = JSON.parse(user!).email
-      setUserEmail(currEmail)
-    } else {
+    if (!userEmail) {
       navigate('/login');
     }
 
@@ -55,9 +59,7 @@ const Admin: React.FC = () => {
         setRole(currentRole)
       }
     })
-
-    getUsers()
-  }, [getUsers, navigate, user, userEmail, users])
+  }, [navigate, user, userEmail, users])
 
   return (
     <div className={css.container}>

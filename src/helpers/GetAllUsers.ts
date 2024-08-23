@@ -11,6 +11,6 @@ export default async function getAllUsers(role: string) {
   if (res.ok) {
     return res.json()
   } else {
-    throw new Error("Error getting list of Users");
+    throw new Error(`${res.status}`);
   }
 }

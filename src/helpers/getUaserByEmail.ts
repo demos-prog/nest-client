@@ -9,7 +9,8 @@ export default async function getuserByEmail(email: string): Promise<User | null
   });
 
   if (res.ok) {
-    return res.json()
+    const response = await res.json()
+    return response
   } else {
     throw new Error("Error finding User");
   }
