@@ -42,6 +42,7 @@
 }
 
 .submitBtn {
+  text-align: center;
   outline: 1px solid purple;
   cursor: pointer;
   width: 100%;
