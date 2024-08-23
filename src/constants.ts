@@ -29,5 +29,5 @@ export interface IPost {
 export interface IPostDTO {
   title: string,
   content: string,
-  userId: number,
+  user: number,
 }

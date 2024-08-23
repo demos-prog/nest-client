@@ -43,7 +43,7 @@ const PostModal: React.FC<PostModalProps> = ({ postData, setPostData, getPosts, 
     updatePost(postData.id, {
       title: title,
       content: text,
-      userId: userID ?? 0,
+      user: userID ?? 0,
     }).catch(err => {
       console.log(err);
     }).finally(() => {

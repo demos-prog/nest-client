@@ -51,7 +51,7 @@ const User: React.FC = () => {
         createPost({
           title: title,
           content: text,
-          userId: id,
+          user: id,
         }).then(() => {
           setTitle('')
           setText('')
