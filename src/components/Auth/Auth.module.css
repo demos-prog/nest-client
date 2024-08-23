@@ -42,11 +42,12 @@
 }
 
 .submitBtn {
-  text-align: center;
   outline: 1px solid purple;
   cursor: pointer;
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40px;
   background-color: transparent;
   color: purple;
