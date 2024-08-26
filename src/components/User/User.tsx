@@ -16,10 +16,13 @@ import css from './User.module.css';
 
 const User: React.FC = () => {
   const [title, setTitle] = useState('')
+  const [searchTitle, setSearchTitle] = useState('')
   const [text, setText] = useState('')
   const [posts, setPosts] = useState<IPost[]>([])
   const [userEmail, setUserEmail] = useState('')
+  const [searchUserEmail, setSearchUserEmail] = useState('')
   const [userID, setUserID] = useState<number | undefined>()
+  const [searchUserID, setsearchUserID] = useState<number | undefined>()
   const [isLoading, setIsLoading] = useState(false)
   const [userList, setUserList] = useState<Map<number, string>>()
   const [postData, setPostData] = useState<{
@@ -36,8 +39,25 @@ const User: React.FC = () => {
     setTitle(e.target.value)
   }
 
-  const handleChText = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setText(e.target.value)
+  const handleChsearchTitle = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setSearchUserEmail('')
+    setsearchUserID(undefined)
+    setSearchTitle(e.target.value)
+  }
+
+  const handleChSearchUserEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTitle('')
+    const em = e.target.value;
+    setSearchUserEmail(em)
+    if (em === '') {
+      setsearchUserID(undefined)
+    }
+    const curId = await getuserByEmail(em).then(user => user?.id)
+    setsearchUserID(curId)
+  }
+
+  const handleChText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -75,20 +95,21 @@ const User: React.FC = () => {
     }
   }
 
-  const getPosts = useCallback(() => {
-    getAllPosts().then(postsData => {
-      setPosts(postsData);
-    })
+  const getPosts = useCallback((userId?: number, title?: string, take?: number, skip?: number) => {
+    getAllPosts(userId, title, take, skip)
+      .then(postsData => {
+        setPosts(postsData);
+      })
   }, [])
 
   useEffect(() => {
     if (user) {
       const currEmail = JSON.parse(user!).email
-      getuserByEmail(currEmail).then((cuser) => {
-        setUserID(cuser?.id)
+      getuserByEmail(currEmail).then((cUser) => {
+        setUserID(cUser?.id)
       })
       setUserEmail(currEmail)
-      getPosts();
+      getPosts(searchUserID, searchTitle);
     } else {
       navigate('/login');
     }
@@ -110,11 +131,11 @@ const User: React.FC = () => {
     return () => {
       document.body.classList.remove(css.noScroll);
     };
-  }, [getPosts, navigate, postData, user, userEmail]);
+  }, [getPosts, navigate, postData, searchTitle, searchUserID, user, userEmail]);
 
   const postslist = (() => (
     <ul className={css.postslist}>
-      {posts.map((post, i) => (
+      {posts.length > 0 ? (posts.map((post, i) => (
         <li className={css.post} key={i}>
           <div className={css.postHeader}>
             <span>
@@ -144,8 +165,28 @@ const User: React.FC = () => {
           </div>
           <span>{post.content}</span>
         </li>
-      )).reverse()}
+      )).reverse()) : 'nothing was found :('}
     </ul>
+  ))()
+
+  const filterButtons = (() => (
+    <div className={css.filters}>
+      <input
+        className={css.searchInput}
+        placeholder='search by Email'
+        type="text"
+        value={searchUserEmail}
+        onChange={handleChSearchUserEmail}
+      />
+
+      <input
+        className={css.searchInput}
+        placeholder='search by Title'
+        type="text"
+        value={searchTitle}
+        onChange={handleChsearchTitle}
+      />
+    </div>
   ))()
 
   return (
@@ -181,6 +222,7 @@ const User: React.FC = () => {
           />
         </form>
 
+        {filterButtons}
         {postslist}
 
         {postData && (

@@ -144,3 +144,20 @@ header {
 .btn:disabled {
   display: none;
 }
+
+.filters{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.searchInput{
+  padding: 5px 10px;
+  border: 1px solid purple;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.searchInput:focus{
+  outline: 1px solid purple;
+}
