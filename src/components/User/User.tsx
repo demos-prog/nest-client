@@ -24,6 +24,7 @@ const User: React.FC = () => {
   const [userID, setUserID] = useState<number | undefined>()
   const [searchUserID, setsearchUserID] = useState<number | undefined>()
   const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingList, setisLoadingList] = useState(false)
   const [userList, setUserList] = useState<Map<number, string>>()
   const [postData, setPostData] = useState<{
     title: string,
@@ -45,15 +46,19 @@ const User: React.FC = () => {
     setSearchTitle(e.target.value)
   }
 
-  const handleChSearchUserEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChSearchUserEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTitle('')
+
     const em = e.target.value;
     setSearchUserEmail(em)
     if (em === '') {
       setsearchUserID(undefined)
     }
-    const curId = await getuserByEmail(em).then(user => user?.id)
-    setsearchUserID(curId)
+    getuserByEmail(em)
+      .then(user => user?.id)
+      .then(curId => {
+        setsearchUserID(curId)
+      })
   }
 
   const handleChText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -96,10 +101,14 @@ const User: React.FC = () => {
   }
 
   const getPosts = useCallback((userId?: number, title?: string, take?: number, skip?: number) => {
+    setisLoadingList(true)
     getAllPosts(userId, title, take, skip)
       .then(postsData => {
         setPosts(postsData);
       })
+      .finally(() => {
+        setisLoadingList(false)
+      });
   }, [])
 
   useEffect(() => {
@@ -223,7 +232,7 @@ const User: React.FC = () => {
         </form>
 
         {filterButtons}
-        {postslist}
+        {isLoadingList ? 'Loading ...' : postslist}
 
         {postData && (
           <PostModal
