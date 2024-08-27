@@ -29,6 +29,7 @@
 }
 
 .input {
+  font-size: large;
   background-color: transparent;
   padding: 8px 10px;
   border-radius: 5px;
@@ -44,6 +45,7 @@
 }
 
 .submitBtn {
+  font-size: large;
   outline: 1px solid purple;
   cursor: pointer;
   width: 100%;
