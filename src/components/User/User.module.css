@@ -6,6 +6,7 @@
 }
 
 .userPage {
+  font-size: medium;
   max-width: 1200px;
   display: flex;
   flex-direction: column;

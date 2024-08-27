@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_URL, User } from '../../constants';
 import Loader from '../Loader/Loader';
-import css from './Auth.module.css'
+import infoIcon from '../../assets/info_icon.svg';
+import css from './Auth.module.css';
 
 
 const Auth: React.FC = () => {
@@ -62,6 +63,17 @@ const Auth: React.FC = () => {
     <>
       <div className={css.wrapper}>
         <div className={css.window}>
+          <div className={css.norificationWindow}>
+            <img src={infoIcon} alt="info" />
+            <div>
+              <p>Hi there! This is my Rect|Nest pet project.
+                Here you can create a new account.
+              </p>
+              <p>Choose bitween two roles:</p>
+              <p>- <b><u>User</u></b>: creates messages and views all other created messages.</p>
+              <p>- <b><u>Admin</u></b>: sees and manages list of users and administrators.</p>
+            </div>
+          </div>
           {isError ? <span>Something went wrong :(</span> : null}
           <span>Sign up. Already have an account? <Link to={'/login'}><u>Sign in</u></Link></span>
           <form onSubmit={submit} className={css.form}>
