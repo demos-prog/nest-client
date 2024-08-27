@@ -70,7 +70,7 @@ const Auth: React.FC = () => {
                 Here you can create a new account.
               </p>
               <p>Choose bitween two roles:</p>
-              <p>- <b><u>User</u></b>: creates messages and views all other created messages.</p>
+              <p>- <b><u>User</u></b>: creates posts and views all other created posts.</p>
               <p>- <b><u>Admin</u></b>: sees and manages list of users and administrators.</p>
             </div>
           </div>
