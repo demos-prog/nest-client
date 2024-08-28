@@ -76,10 +76,14 @@ td {
     transform: rotate(-90deg);
     position: fixed;
     top: 215px;
-    left: -155px;
+    left: -115px;
   }
 
   .hello {
     font-size: 20px;
+  }
+
+  .modalWindow{
+    transform: rotate(90deg);
   }
 }

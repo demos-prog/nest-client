@@ -83,3 +83,9 @@
   accent-color: purple;
   cursor: pointer;
 }
+
+@media (max-width: 400px) {
+  .modalWindow{
+    transform: rotate(90deg);
+  }
+}

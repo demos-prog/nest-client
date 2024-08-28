@@ -148,6 +148,7 @@ header {
 
 .filters{
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 20px;
 }
@@ -161,4 +162,10 @@ header {
 
 .searchInput:focus{
   outline: 1px solid purple;
+}
+
+@media (max-width:400px) {
+  .hello{
+    font-size: 20px;
+  }
 }
