@@ -82,8 +82,4 @@ td {
   .hello {
     font-size: 20px;
   }
-
-  .modalWindow{
-    transform: rotate(90deg);
-  }
 }
