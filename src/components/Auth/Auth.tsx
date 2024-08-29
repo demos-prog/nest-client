@@ -81,6 +81,7 @@ const Auth: React.FC = () => {
               className={css.input}
               name='email'
               required
+              autoComplete='email'
               disabled={isLoading}
               type="email"
               placeholder='Email'
@@ -91,6 +92,7 @@ const Auth: React.FC = () => {
               className={css.input}
               required
               disabled={isLoading}
+              autoComplete='new-password'
               name='password'
               type="password"
               placeholder='Password'
@@ -101,7 +103,9 @@ const Auth: React.FC = () => {
               <label className={css.radioElem}>
                 <input
                   className={css.radio}
+                  name='user'
                   type="radio"
+                  autoComplete='off'
                   onChange={changeRole}
                   value={'user'}
                   checked={role === 'user'}
@@ -111,6 +115,8 @@ const Auth: React.FC = () => {
               <label className={css.radioElem}>
                 <input
                   className={css.radio}
+                  name='admin'
+                  autoComplete='off'
                   type="radio"
                   onChange={changeRole}
                   value={'admin'}

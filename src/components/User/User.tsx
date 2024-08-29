@@ -183,6 +183,7 @@ const User: React.FC = () => {
       <input
         className={css.searchInput}
         name='email'
+        autoComplete='email'
         placeholder='search by Email'
         type="text"
         value={searchUserEmail}

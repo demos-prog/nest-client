@@ -70,6 +70,7 @@ const Login: React.FC = () => {
               className={css.input}
               required
               disabled={isLoading}
+              autoComplete='current-password'
               name='email'
               type="email"
               placeholder='Email'
