@@ -79,6 +79,7 @@ const Auth: React.FC = () => {
           <form onSubmit={submit} className={css.form}>
             <input
               className={css.input}
+              name='email'
               required
               disabled={isLoading}
               type="email"
@@ -90,6 +91,7 @@ const Auth: React.FC = () => {
               className={css.input}
               required
               disabled={isLoading}
+              name='password'
               type="password"
               placeholder='Password'
               value={password}

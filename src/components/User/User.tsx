@@ -182,6 +182,7 @@ const User: React.FC = () => {
     <div className={css.filters}>
       <input
         className={css.searchInput}
+        name='email'
         placeholder='search by Email'
         type="text"
         value={searchUserEmail}
@@ -191,6 +192,7 @@ const User: React.FC = () => {
       <input
         className={css.searchInput}
         placeholder='search by Title'
+        name='text'
         type="text"
         value={searchTitle}
         onChange={handleChsearchTitle}

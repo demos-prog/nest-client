@@ -70,6 +70,7 @@ const Login: React.FC = () => {
               className={css.input}
               required
               disabled={isLoading}
+              name='email'
               type="email"
               placeholder='Email'
               value={email}
@@ -79,6 +80,7 @@ const Login: React.FC = () => {
               className={css.input}
               required
               disabled={isLoading}
+              name='password'
               type="password"
               placeholder='Password'
               value={password}
